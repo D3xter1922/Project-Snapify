@@ -22,7 +22,7 @@ export const getMessage = (originString: string): string =>
  */
 export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
   switch (request.method) {
-    case 'hello':
+    case 'helllo':
       return wallet.request({
         method: 'snap_confirm',
         params: [
