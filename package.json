@@ -48,6 +48,8 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "react-unity-webgl": "^8.8.0"
+    "ethers": "^5.7.2",
+    "react-unity-webgl": "^8.8.0",
+    "wagmi": "^0.10.15"
   }
 }

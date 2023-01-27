@@ -9,6 +9,8 @@ import React, { useState, useEffect } from "react";
 
 import {
   connectSnap,
+  getAccountDetails,
+  setAccountDetails,
   getSnap,
   sendHello,
   shouldDisplayReconnectButton,
@@ -67,25 +69,46 @@ const unityContext = new UnityContext({
 
 export const App: FunctionComponent<AppProps> = ({ children }) => {
   const toggleTheme = useContext(ToggleThemeContext);
+  const [data, setdata] = useState("");
 
   useEffect(function () {
-    unityContext.on("ConnectToMetamask", function () {
+    unityContext.on("ConnectToMetamask", async function () {
       console.log("hi");
       connectSnap();
+      
+    }); 
+  }, []);
+  useEffect(function () {
+    unityContext.on("PushAccountDetails", function (s) {
+      console.log("pushing details");
+      console.log(s);
+      setdata(s);
+      // setAccountDetails(encodedString);
     });
+  }, []);
+  useEffect(function () {
+    unityContext.on("AskForAccountDetails", async function () {
+      console.log("unity asked for account details");
+      
+      let response = await getAccountDetails();
+      console.log("response");
+      console.log(response);
+
+      //unityContext.send("ItemContainer", "GetAccountDetails", response);
+    }); 
   }, []);
   return <Unity unityContext={unityContext} style={{
     width: "100%",
     height: "100%",
   }} />;
-  // return (
-  //   <>
-  //     <GlobalStyle />
-  //     <Wrapper>
-  //       <Header handleToggleClick={toggleTheme} />
-  //       {children}
-  //       <Footer />
-  //     </Wrapper>
-  //   </>
-  // );
+  return (
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <Header handleToggleClick={toggleTheme} />
+        {children}
+        <Footer />
+      </Wrapper>
+    </>
+  );
 };
