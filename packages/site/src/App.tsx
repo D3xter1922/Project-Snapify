@@ -72,6 +72,12 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
   const [data, setdata] = useState("");
 
   useEffect(function () {
+    unityContext.on("debug", function (message) {
+      console.log(message);
+    });
+  }, []);
+
+  useEffect(function () {
     unityContext.on("ConnectToMetamask", async function () {
       console.log("hi");
       connectSnap();
@@ -79,11 +85,11 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     }); 
   }, []);
   useEffect(function () {
-    unityContext.on("PushAccountDetails", function (s) {
+    unityContext.on("PushAccountDetails", async function (s) {
       console.log("pushing details");
       console.log(s);
-      setdata(s);
-      // setAccountDetails(encodedString);
+      // setdata(s);
+      setAccountDetails(s);
     });
   }, []);
   useEffect(function () {
@@ -94,9 +100,29 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       console.log("response");
       console.log(response);
 
-      //unityContext.send("ItemContainer", "GetAccountDetails", response);
+      unityContext.send("ItemContainer", "GetAccountDetails", response.book);
     }); 
   }, []);
+
+  useEffect(function () {
+    unityContext.on("AskForAssetNFTs", async function () {
+      console.log("nuity asked for asset NFT details");
+      // let response = await getAssetDetails();
+      // unityContext.send("assetListContainer", "ReceiveAssetNFTs", response);
+      
+    }); 
+  }, []);
+  useEffect(function () {
+    unityContext.on("SendTxn", async function (s) {
+      console.log("nuity asked to snd nft");
+
+      // s can be id of asset or URI
+      // let response = await getAssetDetails();
+      // unityContext.send("assetListContainer", "ReceiveAssetNFTs", response);
+      
+    }); 
+  }, []);
+
   return <Unity unityContext={unityContext} style={{
     width: "100%",
     height: "100%",

@@ -29,7 +29,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ origin, request }) => 
   });
 
   if (!data) {
-    data = {book:[]}; 
+    data = {book:""}; 
     // initialize state if empty and set default data
     await wallet.request({
       method: 'snap_manageState',
@@ -55,19 +55,29 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ origin, request }) => 
       });
     case 'getDetails':
       console.log("getDetai;s");
-      console.log(data.book);
-      return data.book;
+      const persistedData = await wallet.request({
+        method: 'snap_manageState',
+        params: ['get'],
+      });
+      console.log(persistedData);
+      return persistedData;
+    
+    
     case 'setDetails':
+      console.log("s");
+      console.log(request.params[0].s)
 
-      data.book={
-        s: request.params[0].encodedData,
-      }
+      data.book = request.params[0].s;
+      
       console.log("data");
       console.log(data);
-      await wallet.request({
-      method: 'snap_manageState',
-      params: ['update', data],
-    });
+      return wallet.request({
+        method: 'snap_manageState',
+        params: ['update', data],
+      });
+      return wallet.request({
+        method: 'snap_confirm',
+      });
     default:
       throw new Error('Method not found.');
   }

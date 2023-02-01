@@ -62,23 +62,43 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
  */
 
 export const setAccountDetails = async (data: any) => {
+  console.log("setaccDetails");
+  // await window.ethereum.request({
+  //   method: 'wallet_invokeSnap',
+  //   params: [
+  //     defaultSnapOrigin,
+  //     {
+  //       method: 'helllo',
+  //     },
+  //   ],
+  // });
   
   try {
     await window.ethereum.request({
-      method: 'wallet_invokeSnap',
+      method: 'wallet_invokeSnap', 
       params: [
         defaultSnapOrigin,
         {
-          method: 'setDetails',
-          params: [
-            {
-              encodedData:data, 
-            },
-          ],
-        },
-        
-      ],
-    });
+           method: 'setDetails',
+           params: [
+             {
+               s: data, 
+             }
+           ]
+         }]
+      // method: 'wallet_invokeSnap',
+      // params: [
+      //   defaultSnapOrigin,
+      //   request: {
+      //     method: 'setDetails',
+      //     params: [
+      //       {
+      //         s: data,
+      //       }
+      //     ]
+      //   },  
+      // ],
+    })
   } catch (err) {
     console.error(err)
     alert('Problem happened: ' + err.message || err)
@@ -104,15 +124,7 @@ export const getAccountDetails = async () => {
   }
 }
 export const sendHello = async (tokenURI: string) => {
-  // await window.ethereum.request({
-  //   method: 'wallet_invokeSnap',
-  //   params: [
-  //     defaultSnapOrigin,
-  //     {
-  //       method: 'helllo',
-  //     },
-  //   ],
-  // });
+  
   const simpleNFTContractAddress = "0xB967F2C084617c83C0618F35Be9970e0d571137f";
   const simpleNFTInterface = new ethers.utils.Interface([
     "constructor(string memory name_, string memory symbol_)",
