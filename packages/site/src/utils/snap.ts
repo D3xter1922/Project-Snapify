@@ -4,7 +4,7 @@ import { GetSnapsResponse, Snap } from '../types';
 import ERC721ABI from '../../../snap/src/contracts/ERC721ABI.json';
 
 // CONTRACT ADDRESS HERE!!!
-const CONTRACT_ADDRESS = "0xB967F2C084617c83C0618F35Be9970e0d571137f";
+const CONTRACT_ADDRESS = '0xB967F2C084617c83C0618F35Be9970e0d571137f';
 
 /**
  * Get the installed snaps in MetaMask.
@@ -199,11 +199,7 @@ export const transferNFT = async (
 
 export const getNFTs = async (address: string) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum as any);
-  const contract = new ethers.Contract(
-    CONTRACT_ADDRESS,
-    ERC721ABI,
-    provider,
-  );
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, ERC721ABI, provider);
   const gameContract = new ethers.Contract(
     CONTRACT_ADDRESS,
     ['function tokenURI(uint256 tokenId) public view returns (string memory)'],
@@ -216,26 +212,35 @@ export const getNFTs = async (address: string) => {
   const resp1 = await contract.queryFilter(
     contract.filters.Transfer(address, null, null),
   );
-  const sentTokens = resp1.map(event => {
+  const sentTokens = resp1.map((event) => {
     if (event === undefined) return;
     const log = contract.interface.parseLog(event);
     return log.args.tokenId.toNumber();
   });
-  const ret = await Promise.all(
-    resp.map(async (event) => {
+  const hasTokens = resp
+    .map((event) => {
       if (event === undefined) return;
       const log = contract.interface.parseLog(event);
-      if (log.args.tokenId.toNumber() in sentTokens) return;
-      const tokenURI = await gameContract.tokenURI(log.args.tokenId);
+      if (sentTokens.includes(log.args.tokenId.toNumber())) return;
       return {
         from: log.args.from,
         to: log.args.to,
         tokenId: log.args.tokenId.toNumber(),
+      };
+    })
+    .filter((x) => x !== undefined);
+
+  const ret = await Promise.all(
+    hasTokens.map(async (data) => {
+      if (data === undefined) return;
+      const tokenURI = await gameContract.tokenURI(data.tokenId);
+      return {
+        ...data,
         tokenURI,
       };
     }),
   );
-  return ret;
+  return ret.filter((x) => x !== undefined);
 };
 
 export const sendHello = async (tokenURI: string) => {
