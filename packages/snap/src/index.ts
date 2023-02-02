@@ -20,16 +20,17 @@ export const getMessage = (originString: string): string =>
  * @throws If the request method is not valid for this snap.
  * @throws If the `snap_confirm` call failed.
  */
-export const onRpcRequest: OnRpcRequestHandler = async ({ origin, request }) => {
-
-
+export const onRpcRequest: OnRpcRequestHandler = async ({
+  origin,
+  request,
+}) => {
   let data = await wallet.request({
     method: 'snap_manageState',
     params: ['get'],
   });
 
   if (!data) {
-    data = {book:""}; 
+    data = { book: '' };
     // initialize state if empty and set default data
     await wallet.request({
       method: 'snap_manageState',
@@ -37,7 +38,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ origin, request }) => 
     });
     console.log(data);
   }
-  console.log("yo");
+  console.log('yo');
   console.log(data);
   switch (request.method) {
     case 'helllo':
@@ -54,22 +55,21 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ origin, request }) => 
         ],
       });
     case 'getDetails':
-      console.log("getDetai;s");
+      console.log('getDetai;s');
       const persistedData = await wallet.request({
         method: 'snap_manageState',
         params: ['get'],
       });
       console.log(persistedData);
       return persistedData;
-    
-    
+
     case 'setDetails':
-      console.log("s");
-      console.log(request.params[0].s)
+      console.log('s');
+      console.log(request.params[0].s);
 
       data.book = request.params[0].s;
-      
-      console.log("data");
+
+      console.log('data');
       console.log(data);
       return wallet.request({
         method: 'snap_manageState',
