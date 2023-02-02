@@ -213,10 +213,19 @@ export const getNFTs = async (address: string) => {
   const resp = await contract.queryFilter(
     contract.filters.Transfer(null, address, null),
   );
+  const resp1 = await contract.queryFilter(
+    contract.filters.Transfer(address, null, null),
+  );
+  const sentTokens = resp1.map(event => {
+    if (event === undefined) return;
+    const log = contract.interface.parseLog(event);
+    return log.args.tokenId.toNumber();
+  });
   const ret = await Promise.all(
     resp.map(async (event) => {
       if (event === undefined) return;
       const log = contract.interface.parseLog(event);
+      if (log.args.tokenId.toNumber() in sentTokens) return;
       const tokenURI = await gameContract.tokenURI(log.args.tokenId);
       return {
         from: log.args.from,
