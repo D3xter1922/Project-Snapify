@@ -99,7 +99,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     unityContext.on('AskForAccountDetails', async function () {
       console.log('unity asked for account details');
 
-      let response = await getAccountDetails();
+      let response: any = await getAccountDetails();
       console.log('response');
       console.log(response);
 
@@ -118,7 +118,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       nftDetails.AssetItem = [];
       response.then((result) => {
         console.log(result);
-        result.forEach((element) =>
+        result.forEach((element: any) =>
           nftDetails.AssetItem.push({
             key: element.tokenURI,
             tokenID: element.tokenId,

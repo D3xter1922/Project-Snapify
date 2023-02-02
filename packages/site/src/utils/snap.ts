@@ -2,6 +2,10 @@ import { ethers } from 'ethers';
 import { defaultSnapOrigin } from '../config';
 import { GetSnapsResponse, Snap } from '../types';
 import ERC721ABI from '../../../snap/src/contracts/ERC721ABI.json';
+
+// CONTRACT ADDRESS HERE!!!
+const CONTRACT_ADDRESS = "0xB967F2C084617c83C0618F35Be9970e0d571137f";
+
 /**
  * Get the installed snaps in MetaMask.
  *
@@ -126,7 +130,6 @@ export const getAccountDetails = async () => {
 };
 
 export const mintNFT = async (tokenURI: string) => {
-  const simpleNFTContractAddress = '0xB967F2C084617c83C0618F35Be9970e0d571137f';
   const simpleNFTInterface = new ethers.utils.Interface([
     'constructor(string memory name_, string memory symbol_)',
     'function mint(string memory tokenURI) public returns (uint256)',
@@ -145,7 +148,7 @@ export const mintNFT = async (tokenURI: string) => {
       params: [
         {
           from,
-          to: simpleNFTContractAddress,
+          to: CONTRACT_ADDRESS,
           value: '0x0',
           data: functionData,
         },
@@ -162,7 +165,6 @@ export const transferNFT = async (
   toAddress: string,
   tokenID: number,
 ) => {
-  const simpleNFTContractAddress = '0x73d6852338ee1D2B9926CF3deafF6fd9f5a23DfD';
   const simpleNFTInterface = new ethers.utils.Interface([
     'constructor(string memory name_, string memory symbol_)',
     'function mint(string memory tokenURI) public returns (uint256)',
@@ -183,7 +185,7 @@ export const transferNFT = async (
       params: [
         {
           from,
-          to: simpleNFTContractAddress,
+          to: CONTRACT_ADDRESS,
           value: '0x0',
           data: functionData,
         },
@@ -196,16 +198,14 @@ export const transferNFT = async (
 };
 
 export const getNFTs = async (address: string) => {
-  // const simpleNFTContractAddress = '0x51a37d382c211517c68a64bdd112f2c9fb0b771c';
-  const simpleNFTContractAddress = '0xB967F2C084617c83C0618F35Be9970e0d571137f';
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.providers.Web3Provider(window.ethereum as any);
   const contract = new ethers.Contract(
-    simpleNFTContractAddress,
+    CONTRACT_ADDRESS,
     ERC721ABI,
     provider,
   );
   const gameContract = new ethers.Contract(
-    simpleNFTContractAddress,
+    CONTRACT_ADDRESS,
     ['function tokenURI(uint256 tokenId) public view returns (string memory)'],
     provider,
   );
