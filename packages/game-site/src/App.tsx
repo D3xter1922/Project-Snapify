@@ -33,10 +33,10 @@ export type AppProps = {
 };
 
 const unityContext = new UnityContext({
-  loaderUrl: 'Build/newBuild.loader.js',
-  dataUrl: 'Build/newBuild.data',
-  frameworkUrl: 'Build/newBuild.framework.js',
-  codeUrl: 'Build/newBuild.wasm',
+  loaderUrl: 'Game/newBuild.loader.js',
+  dataUrl: 'Game/newBuild.data',
+  frameworkUrl: 'Game/newBuild.framework.js',
+  codeUrl: 'Game/newBuild.wasm',
 });
 // function App() {
 //   return <Unity unityContext={unityContext} />;
