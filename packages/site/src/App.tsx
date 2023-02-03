@@ -5,7 +5,7 @@ import { Footer, Header } from './components';
 import { GlobalStyle } from './config/theme';
 import { ToggleThemeContext } from './Root';
 import Unity, { UnityContext } from 'react-unity-webgl';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 
 import {
   connectSnap,
@@ -13,38 +13,25 @@ import {
   setAccountDetails,
   getSnap,
   sendHello,
-  shouldDisplayReconnectButton,
   transferNFT,
   mintNFT,
   getNFTs,
+  getCities,
 } from './utils';
 
-import {
-  ConnectButton,
-  InstallFlaskButton,
-  ReconnectButton,
-  SendHelloButton,
-  Card,
-} from './components';
+import { initializeApp } from 'firebase/app';
 
-import { MetamaskActions, MetaMaskContext } from './hooks';
+import getFirestore from 'firebase/firestore';
+// import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.0/firebase-app.js';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// const [state, dispatch] = useContext(MetaMaskContext);
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-// const handleConnectClick = async () => {
-//     try {
-//       await connectSnap();
-//       const installedSnap = await getSnap();
-
-//       dispatch({
-//         type: MetamaskActions.SetInstalled,
-//         payload: installedSnap,
-//       });
-//     } catch (e) {
-//       console.error(e);
-//       dispatch({ type: MetamaskActions.SetError, payload: e });
-//     }
-//   };
+// const firebaseapp = initializeApp(firebaseConfig);
+// Initialize Firebase
+// const app = getFirestore();
 
 const Wrapper = styled.div`
   display: flex;
@@ -84,6 +71,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
   useEffect(function () {
     unityContext.on('ConnectToMetamask', async function () {
       console.log('hi');
+      getCities();
       connectSnap();
     });
   }, []);
