@@ -102,7 +102,6 @@ const ErrorMessage = styled.div`
 const Index = () => {
   const [state, dispatch] = useContext(MetaMaskContext);
 
-
   const handleConnectClick = async () => {
     try {
       await connectSnap();
@@ -120,7 +119,7 @@ const Index = () => {
 
   const handleSendHelloClick = async () => {
     try {
-      await sendHello("abcdedffsdgdfsguhdefiuyg");
+      await sendHello('abcdedffsdgdfsguhdefiuyg');
     } catch (e) {
       console.error(e);
       dispatch({ type: MetamaskActions.SetError, payload: e });

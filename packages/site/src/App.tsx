@@ -5,7 +5,7 @@ import { Footer, Header } from './components';
 import { GlobalStyle } from './config/theme';
 import { ToggleThemeContext } from './Root';
 import Unity, { UnityContext } from 'react-unity-webgl';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 
 import {
   connectSnap,
@@ -13,38 +13,12 @@ import {
   setAccountDetails,
   getSnap,
   sendHello,
-  shouldDisplayReconnectButton,
   transferNFT,
   mintNFT,
   getNFTs,
 } from './utils';
-
-import {
-  ConnectButton,
-  InstallFlaskButton,
-  ReconnectButton,
-  SendHelloButton,
-  Card,
-} from './components';
-
-import { MetamaskActions, MetaMaskContext } from './hooks';
-
-// const [state, dispatch] = useContext(MetaMaskContext);
-
-// const handleConnectClick = async () => {
-//     try {
-//       await connectSnap();
-//       const installedSnap = await getSnap();
-
-//       dispatch({
-//         type: MetamaskActions.SetInstalled,
-//         payload: installedSnap,
-//       });
-//     } catch (e) {
-//       console.error(e);
-//       dispatch({ type: MetamaskActions.SetError, payload: e });
-//     }
-//   };
+import { db } from './utils/firebase';
+import { doc, setDoc, updateDoc } from 'firebase/firestore/lite';
 
 const Wrapper = styled.div`
   display: flex;
@@ -106,14 +80,41 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       unityContext.send('ItemContainer', 'GetAccountDetails', response.book);
     });
   }, []);
+  useEffect(function () {
+    unityContext.on(
+      'CreateAcc',
+      async function (uri: string, level: number, money: number) {
+        await setDoc(doc(db, 'data', uri), {
+          level,
+          money,
+        });
+      },
+    );
+  }, []);
+  useEffect(function () {
+    unityContext.on(
+      'UpdateAcc',
+      async function (uri: string, level: number, money: number) {
+        await updateDoc(doc(db, 'data', uri), {
+          level,
+          money,
+        });
+      },
+    );
+  }, []);
+  useEffect(function () {
+    unityContext.on('GetAcc', async function (uri: string) {
+      // await updateDoc(doc(db, 'data', uri), {
+      //   level,
+      //   money,
+      // });
+    });
+  }, []);
 
   useEffect(function () {
     unityContext.on('AskForAssetNFTs', async function () {
       console.log('nuity asked for asset NFT details');
-      // await mintNFT('0');
-      // await mintNFT('1');
-      // await mintNFT('2');
-      let response = getNFTs('0x9C3fC7483B8D1d996FA9C1da6cAB4215253Ca2c7');
+      let response = getNFTs();
       nftDetails.AssetItem = AssetItem;
       nftDetails.AssetItem = [];
       response.then((result) => {
@@ -143,11 +144,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       console.log('nuity asked to snd nft');
       console.log(r);
       console.log(s);
-      transferNFT(
-        '0x9C3fC7483B8D1d996FA9C1da6cAB4215253Ca2c7',
-        '0xFa372aA180664647A579B940a6760Bd13ecd8aDb',
-        s,
-      );
+      transferNFT('0xFa372aA180664647A579B940a6760Bd13ecd8aDb', s);
       // s can be id of asset or URI
       // let response = await getAssetDetails();
       // unityContext.send(\"assetListContainer", "ReceiveAssetNFTs", response);

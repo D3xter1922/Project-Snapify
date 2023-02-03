@@ -55,7 +55,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
         ],
       });
     case 'getDetails':
-      console.log('getDetai;s');
+      console.log('getDetails');
       const persistedData = await wallet.request({
         method: 'snap_manageState',
         params: ['get'],

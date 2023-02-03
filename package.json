@@ -25,6 +25,13 @@
     "start": "yarn workspaces foreach --parallel --interlaced --verbose run start",
     "test": "echo \"TODO\""
   },
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "firebase": "9.16.0",
+    "react-unity-webgl": "^8.8.0",
+    "wagmi": "^0.10.15",
+    "whatwg-fetch": "^2.0.4"
+  },
   "devDependencies": {
     "@metamask/eslint-config": "^10.0.0",
     "@metamask/eslint-config-jest": "^10.0.0",
@@ -41,15 +48,12 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.2.1",
     "prettier-plugin-packagejson": "^2.2.18",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "packageManager": "yarn@3.2.1",
   "engines": {
     "node": ">=16.0.0"
-  },
-  "dependencies": {
-    "ethers": "^5.7.2",
-    "react-unity-webgl": "^8.8.0",
-    "wagmi": "^0.10.15"
   }
 }
