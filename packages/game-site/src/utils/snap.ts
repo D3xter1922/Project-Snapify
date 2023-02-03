@@ -130,66 +130,42 @@ export const getAccountDetails = async () => {
 };
 
 export const mintNFT = async (tokenURI: string) => {
-  const simpleNFTInterface = new ethers.utils.Interface([
-    'constructor(string memory name_, string memory symbol_)',
-    'function mint(string memory tokenURI) public returns (uint256)',
-    'function transferFrom(address from, address to, uint256 tokenId)',
-  ]);
-  const functionData = simpleNFTInterface.encodeFunctionData('mint', [
-    tokenURI,
-  ]);
   try {
-    const [from] = (await window.ethereum.request({
-      method: 'eth_requestAccounts',
-    })) as string[];
-    // Send a transaction to MetaMask.
-    const data = await window.ethereum.request({
-      method: 'eth_sendTransaction',
+    let response = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
       params: [
+        defaultSnapOrigin,
         {
-          from,
-          to: CONTRACT_ADDRESS,
-          value: '0x0',
-          data: functionData,
+          method: 'mintNFT',
+          params: [tokenURI],
         },
       ],
     });
-    console.log(data);
-  } catch (e) {
-    console.error(e);
+    return response;
+  } catch (err) {
+    console.error(err);
+    alert('Problem happened: ' + err.message || err);
+    return undefined;
   }
 };
 
 export const transferNFT = async (toAddress: string, tokenID: number) => {
-  const simpleNFTInterface = new ethers.utils.Interface([
-    'constructor(string memory name_, string memory symbol_)',
-    'function mint(string memory tokenURI) public returns (uint256)',
-    'function transferFrom(address from, address to, uint256 tokenId)',
-  ]);
   try {
-    const [from] = (await window.ethereum.request({
-      method: 'eth_requestAccounts',
-    })) as string[];
-    const functionData = simpleNFTInterface.encodeFunctionData('transferFrom', [
-      from,
-      toAddress,
-      tokenID,
-    ]);
-    // Send a transaction to MetaMask.
-    const data = await window.ethereum.request({
-      method: 'eth_sendTransaction',
+    let response = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
       params: [
+        defaultSnapOrigin,
         {
-          from,
-          to: CONTRACT_ADDRESS,
-          value: '0x0',
-          data: functionData,
+          method: 'transferNFT',
+          params: [toAddress, tokenID],
         },
       ],
     });
-    console.log(data);
-  } catch (e) {
-    console.error(e);
+    return response;
+  } catch (err) {
+    console.error(err);
+    alert('Problem happened: ' + err.message || err);
+    return undefined;
   }
 };
 

@@ -7,12 +7,12 @@
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "ZqTJD/NZmhyUJenIbOhUwntbIihSBVJw/AX/P8FIBpw=",
+    "shasum": "yENhLLyxy4VVcaSoNUbl2RkW1hsuy2nWmRUQMnbBR5k=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "snap",
+        "packageName": "game-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
