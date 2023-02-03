@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { defaultSnapOrigin } from '../config';
 import { GetSnapsResponse, Snap } from '../types';
-import ERC721ABI from '../../../snap/src/contracts/ERC721ABI.json';
+import ERC721ABI from './contracts/ERC721ABI.json';
 
 // CONTRACT ADDRESS HERE!!!
 const CONTRACT_ADDRESS = '0xB967F2C084617c83C0618F35Be9970e0d571137f';
