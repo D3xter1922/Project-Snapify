@@ -16,22 +16,9 @@ import {
   transferNFT,
   mintNFT,
   getNFTs,
-  getCities,
 } from './utils';
-
-import { initializeApp } from 'firebase/app';
-
-import getFirestore from 'firebase/firestore';
-// import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.0/firebase-app.js';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-// const firebaseapp = initializeApp(firebaseConfig);
-// Initialize Firebase
-// const app = getFirestore();
+import { db } from './utils/firebase';
+import { doc, setDoc, updateDoc } from 'firebase/firestore/lite';
 
 const Wrapper = styled.div`
   display: flex;
@@ -71,7 +58,6 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
   useEffect(function () {
     unityContext.on('ConnectToMetamask', async function () {
       console.log('hi');
-      getCities();
       connectSnap();
     });
   }, []);
@@ -94,14 +80,41 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       unityContext.send('ItemContainer', 'GetAccountDetails', response.book);
     });
   }, []);
+  useEffect(function () {
+    unityContext.on(
+      'CreateAcc',
+      async function (uri: string, level: number, money: number) {
+        await setDoc(doc(db, 'data', uri), {
+          level,
+          money,
+        });
+      },
+    );
+  }, []);
+  useEffect(function () {
+    unityContext.on(
+      'UpdateAcc',
+      async function (uri: string, level: number, money: number) {
+        await updateDoc(doc(db, 'data', uri), {
+          level,
+          money,
+        });
+      },
+    );
+  }, []);
+  useEffect(function () {
+    unityContext.on('GetAcc', async function (uri: string) {
+      // await updateDoc(doc(db, 'data', uri), {
+      //   level,
+      //   money,
+      // });
+    });
+  }, []);
 
   useEffect(function () {
     unityContext.on('AskForAssetNFTs', async function () {
       console.log('nuity asked for asset NFT details');
-      // await mintNFT('0');
-      // await mintNFT('1');
-      // await mintNFT('2');
-      let response = getNFTs('0x9C3fC7483B8D1d996FA9C1da6cAB4215253Ca2c7');
+      let response = getNFTs();
       nftDetails.AssetItem = AssetItem;
       nftDetails.AssetItem = [];
       response.then((result) => {
@@ -131,11 +144,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       console.log('nuity asked to snd nft');
       console.log(r);
       console.log(s);
-      transferNFT(
-        '0x9C3fC7483B8D1d996FA9C1da6cAB4215253Ca2c7',
-        '0xFa372aA180664647A579B940a6760Bd13ecd8aDb',
-        s,
-      );
+      transferNFT('0xFa372aA180664647A579B940a6760Bd13ecd8aDb', s);
       // s can be id of asset or URI
       // let response = await getAssetDetails();
       // unityContext.send(\"assetListContainer", "ReceiveAssetNFTs", response);

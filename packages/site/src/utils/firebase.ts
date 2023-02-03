@@ -1,10 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  Firestore,
-} from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 const config = {
   apiKey: 'AIzaSyDDfxepNZrUOL53F81Mc3Rawd-rA3JTWJU',
@@ -18,9 +13,9 @@ const config = {
   measurementId: 'G-XKDGYKLH5B',
 };
 
-const app = initializeApp(config);
+export const app = initializeApp(config);
 
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 export async function getCities() {
   const citiesCol = collection(db, 'cities');

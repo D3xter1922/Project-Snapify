@@ -160,25 +160,21 @@ export const mintNFT = async (tokenURI: string) => {
   }
 };
 
-export const transferNFT = async (
-  fromAddress: string,
-  toAddress: string,
-  tokenID: number,
-) => {
+export const transferNFT = async (toAddress: string, tokenID: number) => {
   const simpleNFTInterface = new ethers.utils.Interface([
     'constructor(string memory name_, string memory symbol_)',
     'function mint(string memory tokenURI) public returns (uint256)',
     'function transferFrom(address from, address to, uint256 tokenId)',
   ]);
-  const functionData = simpleNFTInterface.encodeFunctionData('transferFrom', [
-    fromAddress,
-    toAddress,
-    tokenID,
-  ]);
   try {
     const [from] = (await window.ethereum.request({
       method: 'eth_requestAccounts',
     })) as string[];
+    const functionData = simpleNFTInterface.encodeFunctionData('transferFrom', [
+      from,
+      toAddress,
+      tokenID,
+    ]);
     // Send a transaction to MetaMask.
     const data = await window.ethereum.request({
       method: 'eth_sendTransaction',
@@ -197,7 +193,10 @@ export const transferNFT = async (
   }
 };
 
-export const getNFTs = async (address: string) => {
+export const getNFTs = async () => {
+  const [from] = (await window.ethereum.request({
+    method: 'eth_requestAccounts',
+  })) as string[];
   const provider = new ethers.providers.Web3Provider(window.ethereum as any);
   const contract = new ethers.Contract(CONTRACT_ADDRESS, ERC721ABI, provider);
   const gameContract = new ethers.Contract(
@@ -207,18 +206,18 @@ export const getNFTs = async (address: string) => {
   );
 
   const resp = await contract.queryFilter(
-    contract.filters.Transfer(null, address, null),
+    contract.filters.Transfer(null, from, null),
   );
   const resp1 = await contract.queryFilter(
-    contract.filters.Transfer(address, null, null),
+    contract.filters.Transfer(from, null, null),
   );
-  const sentTokens = resp1.map((event) => {
+  const sentTokens = resp1.map((event: any) => {
     if (event === undefined) return;
     const log = contract.interface.parseLog(event);
     return log.args.tokenId.toNumber();
   });
   const hasTokens = resp
-    .map((event) => {
+    .map((event: any) => {
       if (event === undefined) return;
       const log = contract.interface.parseLog(event);
       if (sentTokens.includes(log.args.tokenId.toNumber())) return;
@@ -228,10 +227,10 @@ export const getNFTs = async (address: string) => {
         tokenId: log.args.tokenId.toNumber(),
       };
     })
-    .filter((x) => x !== undefined);
+    .filter((x: any) => x !== undefined);
 
   const ret = await Promise.all(
-    hasTokens.map(async (data) => {
+    hasTokens.map(async (data: any) => {
       if (data === undefined) return;
       const tokenURI = await gameContract.tokenURI(data.tokenId);
       return {
@@ -240,7 +239,7 @@ export const getNFTs = async (address: string) => {
       };
     }),
   );
-  return ret.filter((x) => x !== undefined);
+  return ret.filter((x: any) => x !== undefined);
 };
 
 export const sendHello = async (tokenURI: string) => {
