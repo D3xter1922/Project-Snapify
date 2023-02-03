@@ -1,13 +1,13 @@
 {
   "version": "0.1.0",
   "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example Snap",
+  "proposedName": "Game Details",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "yENhLLyxy4VVcaSoNUbl2RkW1hsuy2nWmRUQMnbBR5k=",
+    "shasum": "6C0QJsvylMF3gLXQ9F4HX/8OZwRu/uTauOZLP1TnoKg=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -19,7 +19,8 @@
   },
   "initialPermissions": {
     "snap_confirm": {},
-    "snap_manageState": {}
+    "snap_manageState": {},
+    "endowment:transaction-insight": {}
   },
   "manifestVersion": "0.1"
 }
