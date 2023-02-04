@@ -18,7 +18,8 @@ import {
   getNFTs,
 } from './utils';
 import { db } from './utils/firebase';
-import { doc, setDoc, updateDoc } from 'firebase/firestore/lite';
+import { doc, setDoc, updateDoc, getDoc } from 'firebase/firestore/lite';
+import { element } from 'prop-types';
 
 const Wrapper = styled.div`
   display: flex;
@@ -45,6 +46,11 @@ var nftDetails = {
   AssetItem: [{}],
 };
 var AssetItem: never[] = [];
+
+var ProgressionDetails = {
+  ProgressionItem: [{}],
+}
+var progressionItem: never[] = [];
 export const App: FunctionComponent<AppProps> = ({ children }) => {
   const toggleTheme = useContext(ToggleThemeContext);
   const [data, setdata] = useState('');
@@ -81,13 +87,52 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     });
   }, []);
   useEffect(function () {
+    unityContext.on('AskForAllProgression', async function () {
+      console.log('unity asked for all progression details');
+
+      
+      const nfts = getNFTs();
+      const result = await nfts;
+      ProgressionDetails.ProgressionItem = [{}];
+      const res = await function(result: any) {
+        return new Promise(async (resolve) => {
+          for (const element of result) {
+            const docRef = doc(db, "data", element.tokenURI);
+            const docSnap = await getDoc(docRef);
+        
+            if (docSnap.exists()) {
+              ProgressionDetails.ProgressionItem.push({
+                key: element.tokenURI,
+                tokenID: element.tokenId,
+                level: docSnap.data().level,
+                money: docSnap.data().money,
+              });
+              console.log("Document data:", ProgressionDetails.ProgressionItem);
+            }
+          }
+          resolve(ProgressionDetails);
+        });
+      };
+      res(result)
+      .then((fin) => {
+        unityContext.send(
+          'ProgressionManager',
+          'ReceiveAllProgression',
+          JSON.stringify(fin),
+        );
+      });
+    });
+  }, []);
+  useEffect(function () {
     unityContext.on(
       'CreateAcc',
       async function (uri: string, level: number, money: number) {
+        await mintNFT(uri);
         await setDoc(doc(db, 'data', uri), {
           level,
           money,
         });
+
       },
     );
   }, []);
