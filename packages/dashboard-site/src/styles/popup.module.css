@@ -3,6 +3,11 @@
     width:400px;
     background-color:#061121;
     border : 5px #1199FA solid;
+    border: double 5px transparent;
+    background-image: linear-gradient(black, black), 
+                        linear-gradient(rgb(138, 66, 173) 0%, rgb(103, 98, 235) 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
     border-radius: 15px;
     color:white;
     font-family: 'Poppins';
@@ -10,9 +15,15 @@
 }
 .buttonn{
     margin-top:25px;
+    margin-bottom:25px;
     background-color:#061121;
     border:4px #1199FA solid;
-    border-radius: 2px;
+    border: double 5px transparent;
+    background-image: linear-gradient(black, black), 
+                        linear-gradient(rgb(138, 66, 173) 0%, rgb(103, 98, 235) 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: 99px;
     font-family: 'Poppins';
     font-size: 1rem;
     text-decoration: none;
@@ -34,6 +45,12 @@
     outline: none;
     background-color: #061121;
     border:1px #1199FA solid;
+    border: double 5px transparent;
+    background-image: linear-gradient(black, black), 
+                        linear-gradient(rgb(138, 66, 173) 0%, rgb(103, 98, 235) 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: 15px;
     color:white;
     padding-left: 10px;
 }
@@ -44,6 +61,12 @@
     outline: none;
     background-color: #061121;
     border:1px #1199FA solid;
+    border: double 5px transparent;
+    background-image: linear-gradient(black, black), 
+                        linear-gradient(rgb(138, 66, 173) 0%, rgb(103, 98, 235) 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: 15px;
     color:white;
     padding-left: 10px;
     resize: vertical;
@@ -55,8 +78,14 @@
     text-decoration: none;
     font-family: 'Poppins';
     color:white;
-    border: #1199FA 1px solid;
-    border-radius: 5px;
+    /* border: #1199FA 1px solid; */
+    border:4px #1199FA solid;
+    border: double 5px transparent;
+    background-image: linear-gradient(black, black), 
+                        linear-gradient(rgb(138, 66, 173) 0%, rgb(103, 98, 235) 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: 99px;
 }
 .submitdiv{
     width: fit-content;

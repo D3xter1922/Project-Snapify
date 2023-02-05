@@ -4,17 +4,16 @@ import Button from '@mui/material/Button';
 import { BsFillBookmarkFill } from 'react-icons/bs';
 import { BsFillArrowDownCircleFill } from 'react-icons/bs';
 import { GrInstallOption } from 'react-icons/gr';
+import RunDapp from './RunDapp';
 
 
 export default function Card(props) {
     function func(){
         // code to run the script for installing the snaps
-
-
-
+        console.log("hi")
 
         // code to redirect to the dapp page
-        window.open(props.install_link, "_blank")
+        // window.open(props.install_link, "_blank")
     }
     return (
         <div >
@@ -31,7 +30,7 @@ export default function Card(props) {
                     {props.price}
                     <div className={styles.box4}>
                         <Link className = {styles.link}> <BsFillBookmarkFill style = {{"fontSize":"25px","marginRight":"8px"}}/> </Link>
-                        <Link className = {styles.link} onClick={func} href={props.install_link} > <BsFillArrowDownCircleFill style = {{"fontSize":"25px"}}/> </Link>
+                        <Link className = {styles.link} onClick={func} href={props.install_link} to = {props.title} > <BsFillArrowDownCircleFill style = {{"fontSize":"25px"}}/> </Link>
                     </div>
 
                 </div>

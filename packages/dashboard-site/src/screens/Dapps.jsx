@@ -23,7 +23,7 @@ export default function Dapps() {
     // },[])
     return (
         <div style = {{"width":"75.5%","margin":"0px auto 0px", "position":"relative"}}>
-            <h1>Dapps</h1>
+            <h2 style = {{"textAlign":"center","fontSize":"2rem","marginTop":"20px"}}>Dapps</h2>
             {response.map((item) => {
                 return <Card key = {item.key} title = {item.title} description = {item.description} learn_more_link = {item.learn_more_link} price = {item.price} install_link = {item.install_link}/>
             })}
