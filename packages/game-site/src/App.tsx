@@ -49,7 +49,7 @@ var AssetItem: never[] = [];
 
 var ProgressionDetails = {
   ProgressionItem: [{}],
-}
+};
 var progressionItem: never[] = [];
 export const App: FunctionComponent<AppProps> = ({ children }) => {
   const toggleTheme = useContext(ToggleThemeContext);
@@ -90,16 +90,15 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     unityContext.on('AskForAllProgression', async function () {
       console.log('unity asked for all progression details');
 
-      
       const nfts = getNFTs();
       const result = await nfts;
-      ProgressionDetails.ProgressionItem = [{}];
-      const res = await function(result: any) {
+      ProgressionDetails.ProgressionItem = [];
+      const res = await function (result: any) {
         return new Promise(async (resolve) => {
           for (const element of result) {
-            const docRef = doc(db, "data", element.tokenURI);
+            const docRef = doc(db, 'data', element.tokenURI);
             const docSnap = await getDoc(docRef);
-        
+
             if (docSnap.exists()) {
               ProgressionDetails.ProgressionItem.push({
                 key: element.tokenURI,
@@ -107,14 +106,13 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
                 level: docSnap.data().level,
                 money: docSnap.data().money,
               });
-              console.log("Document data:", ProgressionDetails.ProgressionItem);
+              console.log('Document data:', ProgressionDetails.ProgressionItem);
             }
           }
           resolve(ProgressionDetails);
         });
       };
-      res(result)
-      .then((fin) => {
+      res(result).then((fin) => {
         unityContext.send(
           'ProgressionManager',
           'ReceiveAllProgression',
@@ -132,7 +130,6 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
           level,
           money,
         });
-
       },
     );
   }, []);
