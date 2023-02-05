@@ -1,50 +1,42 @@
 [
-    {
-        "key":1,
-        "title":"Bitcoin",
-        "description":"This is just a testing description",
-        "learn_more_link":"https://www.google.com",
-        "price":"$23,076.45",
-        "install_link":"https://crypto.com/price/bitcoin"
-    },
-    {
-        "key":2,
-        "title":"Ethereum",
-        "description":"This is just a other testing description",
-        "learn_more_link":"https://www.yahoo.com",
-        "price":"$1,641.41",
-        "install_link":"https://crypto.com/price/ethereum"
-    },
-    {
-        "key":3,
-        "title":"Dogecoin",
-        "description":"This is doggy coin",
-        "learn_more_link":"https://www.yahoo.com",
-        "price":"$0.08499",
-        "install_link":"https://crypto.com/price/dogecoin"
-    },    
-    {
-        "key":4,
-        "title":"Bitcoin",
-        "description":"This is just a testing description",
-        "learn_more_link":"https://www.google.com",
-        "price":"$23,076.45",
-        "install_link":"https://crypto.com/price/bitcoin"
-    },
-    {
-        "key":5,
-        "title":"Ethereum",
-        "description":"This is just a other testing description",
-        "learn_more_link":"https://www.yahoo.com",
-        "price":"$1,641.41",
-        "install_link":"https://crypto.com/price/ethereum"
-    },
-    {
-        "key":6,
-        "title":"Dogecoin",
-        "description":"This is doggy coin",
-        "learn_more_link":"https://www.yahoo.com",
-        "price":"$0.08499",
-        "install_link":"https://crypto.com/price/dogecoin"
-    }
+  {
+    "key": 1,
+    "title": "Bitcoin",
+    "description": "Bitcoin is a protocol which implements a highly available, public, and decentralized ledger. In order to update the ledger, a user must prove they control an entry in the ledger",
+    "learn_more_link": "https://www.google.com",
+    "price": "$23,076.45",
+    "install_link": "https://crypto.com/price/bitcoin"
+  },
+  {
+    "key": 2,
+    "title": "Litecoin",
+    "description": "Litecoin is a decentralized peer-to-peer cryptocurrency and open-source software project released under the MIT/X11 license. Inspired by Bitcoin, Litecoin was among the earliest altcoins, starting in October 2011. In technical details, the Litecoin main chain shares a slightly modified Bitcoin codebase.",
+    "learn_more_link": "https://www.yahoo.com",
+    "price": "$95.25",
+    "install_link": "https://crypto.com/price/dogecoin"
+  },
+  {
+    "key": 3,
+    "title": "Dogecoin",
+    "description": "Dogecoin is a cryptocurrency created by software engineers Billy Markus and Jackson Palmer, who decided to create a payment system as a \"joke\", making fun of the wild speculation in cryptocurrencies at the time. It is considered both the first \"meme coin\", and, more specifically, the first \"dog coin\".",
+    "learn_more_link": "https://www.yahoo.com",
+    "price": "$0.08499",
+    "install_link": "https://crypto.com/price/dogecoin"
+  },
+  {
+    "key": 4,
+    "title": "Dash",
+    "description": "Dash is an open source cryptocurrency. It is an altcoin that was forked from the Bitcoin protocol. It is also a decentralized autonomous organization run by a subset of its users, which are called \"masternodes\".",
+    "learn_more_link": "https://www.google.com",
+    "price": "$23,076.45",
+    "install_link": "https://crypto.com/price/bitcoin"
+  },
+  {
+    "key": 5,
+    "title": "Namecoin",
+    "description": "Namecoin is a cryptocurrency originally forked from bitcoin software. It uses proof-of-work algorithm. Namecoin can store data within its own blockchain transaction database.",
+    "learn_more_link": "https://www.yahoo.com",
+    "price": "$1.5",
+    "install_link": "https://crypto.com/price/ethereum"
+  }
 ]

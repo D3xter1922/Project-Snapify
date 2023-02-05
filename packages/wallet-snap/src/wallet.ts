@@ -219,6 +219,23 @@ export async function sendBTC(toAddress: string, value: number) {
 
   psbt.finalizeAllInputs();
 
+  const result = await wallet.request({
+    method: 'snap_confirm',
+    params: [
+      {
+        prompt: 'Would you like to send BTC?',
+        description: `You are about to send ${value / 1e8} BTC to ${toAddress}`,
+        textAreaContent: `Fee: ${Math.round(
+          ((tx4feeSize + 5) * feeEstimate) / 1e8,
+        )}\nTotal: ${
+          (Math.round((tx4feeSize + 5) * feeEstimate) + value) / 1e8
+        }`,
+      },
+    ],
+  });
+
+  if (!result) return;
+
   const resp = await fetch(`${BTC_API_URL}/tx`, {
     method: 'POST',
     body: psbt.extractTransaction().toHex(),
