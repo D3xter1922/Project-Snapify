@@ -68,12 +68,6 @@ export async function getBTCPublicData() {
       }),
     );
 
-  console.log(address);
-  console.log(balance);
-  for (const d of transactions) {
-    console.log(d);
-  }
-
   return {
     address,
     balance,
@@ -101,16 +95,11 @@ export async function sendBTC(toAddress: string, value: number) {
     network: bitcoin.networks.testnet,
   }).address as string;
 
-  console.log('cg', changeAddress);
+  value = Math.round(value * 1e8); // Convert to satoshi
 
-  value = Math.round(value * 1e8);
-
-  // Fee go zoommmmmm
   const feeEstimate = await fetch(`${BTC_API_URL}/fee-estimates`)
     .then((res) => res.json())
     .then((data) => data['1']);
-
-  console.log('fe', feeEstimate);
 
   let left = value;
   let utxo = await fetch(`${BTC_API_URL}/address/${changeAddress}/utxo`)
@@ -123,7 +112,6 @@ export async function sendBTC(toAddress: string, value: number) {
         return true;
       }),
     );
-  console.log(utxo, left);
   if (left > 0) {
     return {
       error: 'Insufficient balance',
@@ -134,8 +122,6 @@ export async function sendBTC(toAddress: string, value: number) {
       error: 'Multiple UTXOs not supported',
     };
   }
-
-  console.log('Here');
 
   await Promise.all(
     utxo.map(async (utxo: any) => {
@@ -148,10 +134,8 @@ export async function sendBTC(toAddress: string, value: number) {
 
   utxo = utxo[0];
 
-  console.log('utxo', utxo);
-
-  const psbt4fee = new bitcoin.Psbt({ network: bitcoin.networks.testnet });
-  psbt4fee.addInput({
+  const unusedPsbt = new bitcoin.Psbt({ network: bitcoin.networks.testnet });
+  unusedPsbt.addInput({
     hash: utxo.txid,
     index: utxo.vout,
     witnessUtxo: {
@@ -159,15 +143,15 @@ export async function sendBTC(toAddress: string, value: number) {
       value: utxo.value,
     },
   });
-  psbt4fee.addOutput({
+  unusedPsbt.addOutput({
     address: toAddress,
     value,
   });
-  psbt4fee.addOutput({
+  unusedPsbt.addOutput({
     address: changeAddress,
     value: utxo.value - value - Math.round(1000 * feeEstimate),
   });
-  psbt4fee.signAllInputs(
+  unusedPsbt.signAllInputs(
     ECPair.fromPrivateKey(
       Buffer.from(address.privateKey?.replace(/0x/g, '') ?? '', 'hex'),
       {
@@ -175,9 +159,9 @@ export async function sendBTC(toAddress: string, value: number) {
       },
     ),
   );
-  psbt4fee.finalizeAllInputs();
-  const tx4fee = psbt4fee.extractTransaction();
-  const tx4feeSize = tx4fee.virtualSize();
+  unusedPsbt.finalizeAllInputs();
+  const unusedTx = unusedPsbt.extractTransaction();
+  const unusedTxSize = unusedTx.virtualSize();
 
   const psbt = new bitcoin.Psbt({ network: bitcoin.networks.testnet });
   psbt.addInput({
@@ -194,7 +178,7 @@ export async function sendBTC(toAddress: string, value: number) {
   });
   psbt.addOutput({
     address: changeAddress,
-    value: utxo.value - value - Math.round((tx4feeSize + 5) * feeEstimate),
+    value: utxo.value - value - Math.round((unusedTxSize + 5) * feeEstimate),
   });
   psbt.signAllInputs(
     ECPair.fromPrivateKey(
@@ -225,10 +209,10 @@ export async function sendBTC(toAddress: string, value: number) {
       {
         prompt: 'Would you like to send BTC?',
         description: `You are about to send ${value / 1e8} BTC to ${toAddress}`,
-        textAreaContent: `Fee: ${Math.round(
-          ((tx4feeSize + 5) * feeEstimate) / 1e8,
-        )}\nTotal: ${
-          (Math.round((tx4feeSize + 5) * feeEstimate) + value) / 1e8
+        textAreaContent: `Fee: ${
+          Math.round((unusedTxSize + 5) * feeEstimate) / 1e8
+        }\nTotal: ${
+          (Math.round((unusedTxSize + 5) * feeEstimate) + value) / 1e8
         }`,
       },
     ],
