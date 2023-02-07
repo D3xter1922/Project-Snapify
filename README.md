@@ -9,7 +9,7 @@ MetaMask Snaps is a system that allows anyone to safely expand the capabilities 
 ## The Different Functionalities of Snapify are: 
 ### 1. Snapatar for Games-
          Owing to its application ,this snap finds its use in the social media and content sharing space as well 
-         ,i.e., Snapatar for Social meda and content shairng
+         ,i.e., Snapatar for Social media and content shairng
 ### 2. Snapatar for Social meda and content shairng-
 ### 2. Snapomoto
 
