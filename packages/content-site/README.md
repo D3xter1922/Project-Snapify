@@ -10,6 +10,8 @@ Clone the repository and setup the development environment:
 yarn install && yarn start
 ```
 
+The site will be visible on `http://localhost:5000`
+
 ## Interacting with the Dapp
 
 Start by pressing the connect button in the top right corner. Connect to your Metamask Wallet if prompted, and then approve and install the snap.
