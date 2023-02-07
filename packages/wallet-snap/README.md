@@ -2,11 +2,11 @@
 
 Snapamoto allows users to send Bitcoin transactions via the MetaMask wallet extension. This is achieved by sharing the user's public key and validating the transaction over the blockchain network.
 
-## Acomplishment:
+## Accomplishment:
 
 This snap allows for the control of non-EVM accounts and assets within MetaMask. It can derive BIP-32 key pairs based on the secret recovery phrase without exposing it. This gives developers the ability to build snaps that support various blockchain protocols and integrate non-EVM tokens, such as BTC, into their browser dashboards using snaps. This is made possible through the use of the snap_getBip32Entropy entropy.
 
-## Explaination:
+## Explanation:
 
 ### 1. Guide: 
 
