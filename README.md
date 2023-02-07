@@ -7,8 +7,8 @@ Project Snapfy aims to enable developers build scalable projects without re-inve
 MetaMask Snaps is a system that allows anyone to safely expand the capabilities of MetaMask. A _snap_ is a program that we run in an isolated environment that can customize the wallet experience.
 
 ## The Different Functionalities of Snapify are: 
-### 1. Snapatar for Games-This snap enables the game developers to handle account profiles and transactions hence simplifying the process.
-Owing to its applications,this snap finds its use in the social media and content sharing space as well ,i.e., Snapatar for Social meda and content shairng
+### 1. Snapatar for Games-
+         Owing to its application ,this snap finds its use in the social media and content sharing space as well ,i.e., Snapatar for Social meda and content shairng
 ### 2. Snapatar for Social meda and content shairng-
 ### 2. Snapomoto
 
