@@ -11,3 +11,11 @@ We implement a system to make it trivial for developers to integrate sharing and
 
 
 We also utilize Metamask snaps features such as `onTransaction` and `snap_confirm` to provide information to the user and make the entire experience more user friendly and enable developers to send custom messages to the user.
+
+
+## Snapatar2.0: Phase 2 implementation
+### 1. Megafunction:
+We plan to ease the process of integrating games to our snap by creating a single function that minimizes the complexity on the game side of the applicaiton, we do this by passing each method and parameter as a base64 encoded string, then decoding it on the snap side.
+
+### 2. Custom UI:
+Utilizing upcoming snaps features to create custom UI, we plan to use the `snap_dialog` feature to implement user side `prompts`. This helps to make the entire user experience more consistent across all apps in the ecosystem.
