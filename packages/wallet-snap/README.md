@@ -1,29 +1,29 @@
 # SnapaMoto Bitcoin snap
 
-Snapamoto enables user to send bitcoin transaction via metamask wallet extension. It does so by sharing user's public key and validating transaction over blockchain Network.
+Snapamoto allows users to send Bitcoin transactions via the MetaMask wallet extension. This is achieved by sharing the user's public key and validating the transaction over the blockchain network.
 
 ## Acomplishment:
 
-This snap enables to control non-EVM accounts and assets within MetaMask. It is able to derive BIP-32 keypair based on the secret recovery phrase without exposing it. This gives developers the ability to build snaps that support a variety of blockchain protocols, allowing them to integrate non-EVM tokens like BTC into their dashboard browser using snaps. The snap utilizes snapgetbit32 entropy to achieve this.
+This snap allows for the control of non-EVM accounts and assets within MetaMask. It can derive BIP-32 key pairs based on the secret recovery phrase without exposing it. This gives developers the ability to build snaps that support various blockchain protocols and integrate non-EVM tokens, such as BTC, into their browser dashboards using snaps. This is made possible through the use of the snap_getBip32Entropy entropy.
 
 ## Explaination:
 
 ### 1. Guide: 
 
-Connect the website to the metamask Flask and install the snap dependencies. Select Bitcoin Download button.
+To use the snap, connect the website to the MetaMask Flask and install the snap dependencies. Then, select the Bitcoin Download button.
 
 
 ### 2. Backend process: 
 
-To start a Bitcoin transaction using a Bip32PublicKey. The system uses a single address that is converted to a p2wpkh segwit key, which then generates a segwit address. The testnet API URL is used in this example, but this can be extended to any URL. The system fetches data including the balance, transaction, and returns all data to the front end.
+To initiate a Bitcoin transaction, the system uses a Bip32PublicKey. It converts the single address to a p2wpkh segwit key, generating a segwit address. In this example, the testnet API URL is used, but it can be extended to any URL. The system retrieves balance and transaction data and returns it to the front end.
 
-In order to send the Bitcoin, the private key must be fetched from Metamask. We fetch the unspent transaction output (utxo) from the API URL and check if user has enough balance to send the transaction. The fees are then calculated using a fake transaction. Finally we verify if the transaction is valid.
+To send the Bitcoin, the private key must be retrieved from MetaMask. The system fetches the unspent transaction output (utxo) from the API URL and checks if the user has sufficient balance. The fees are calculated using a dummy transaction. The transaction's validity is then verified.
 
-After receiving confirmation from the Metamask wallet, the transaction is posted to a public node validator, and the response is returned. It should be noted that Bitcoin transactions typically take 10 minutes to process, and the transaction will be confirmed in the next block.
+After receiving confirmation from the MetaMask wallet, the transaction is posted to a public node validator, and the response is returned. It should be noted that Bitcoin transactions typically take 10 minutes to process and will be confirmed in the next block.
 
 
 ## SnapaMoto 2.0 : Phase 2 Implementation
 
-### Enables other coins to be implemented using it. 
-### Use BIP-32 to generate multiple addresses for the user.
+### Enables the integration of other coins.
+### Utilizes BIP-32 to generate multiple addresses for the user.
 
