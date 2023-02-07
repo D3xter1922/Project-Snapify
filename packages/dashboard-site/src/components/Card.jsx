@@ -23,13 +23,6 @@ export default function Card(props) {
         <div className={styles.box2}>
           <h1>{props.title}</h1>
           <p>{props.description}</p>
-          <Link
-            onClick={() => window.open(props.learn_more_link, '_blank')}
-            className={styles.link}
-          >
-            {' '}
-            Learn More
-          </Link>
         </div>
         <div className={styles.box3}>
           {props.price}
@@ -41,9 +34,8 @@ export default function Card(props) {
               />{' '}
             </Link>
             <Link
+              onClick={() => window.open(props.link, '_blank')}
               className={styles.link}
-              href={'/dapps/' + props.install_link}
-              to={'/dapps/' + props.title}
             >
               {' '}
               <BsFillArrowDownCircleFill style={{ fontSize: '25px' }} />{' '}

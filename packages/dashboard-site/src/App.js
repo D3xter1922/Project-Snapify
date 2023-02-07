@@ -34,7 +34,7 @@ function App() {
         <Route path="/featured" element={<Featured />} />
         <Route path="/snaps" element={<Snaps />} />
         <Route path="/saved" element={<Saved />} />
-        <Route path="/dapps/:id" element={<RunDapp />} />
+        <Route path="/dapps/bitcoin" element={<RunDapp />} />
         <Route
           path="/*"
           element={
@@ -45,7 +45,6 @@ function App() {
           }
         />
       </Routes>
-      <Footer />
     </div>
   );
 }
