@@ -105,7 +105,7 @@ export const Header = () => {
 
   const handleConnectClick = async () => {
     try {
-      await connectSnap();
+      await connectSnap(`local:http://localhost:8070`);
       const installedSnap = await getSnap();
 
       dispatch({
