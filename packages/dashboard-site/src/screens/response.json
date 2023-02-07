@@ -9,23 +9,23 @@
   },
   {
     "key": 2,
-    "title": "Litecoin",
+    "title": "Snapatar Game",
     "description": "Litecoin is a decentralized peer-to-peer cryptocurrency and open-source software project released under the MIT/X11 license. Inspired by Bitcoin, Litecoin was among the earliest altcoins, starting in October 2011. In technical details, the Litecoin main chain shares a slightly modified Bitcoin codebase.",
-    "learn_more_link": "https://www.yahoo.com",
+    "learn_more_link": "http://localhost:8000/",
     "price": "$95.25",
-    "install_link": "https://crypto.com/price/dogecoin"
+    "install_link": "http://localhost:8000/"
   },
   {
     "key": 3,
-    "title": "Dogecoin",
+    "title": "ArtShare",
     "description": "Dogecoin is a cryptocurrency created by software engineers Billy Markus and Jackson Palmer, who decided to create a payment system as a \"joke\", making fun of the wild speculation in cryptocurrencies at the time. It is considered both the first \"meme coin\", and, more specifically, the first \"dog coin\".",
-    "learn_more_link": "https://www.yahoo.com",
+    "learn_more_link": "",
     "price": "$0.08499",
     "install_link": "https://crypto.com/price/dogecoin"
   },
   {
     "key": 4,
-    "title": "Dash",
+    "title": "Dogecoin",
     "description": "Dash is an open source cryptocurrency. It is an altcoin that was forked from the Bitcoin protocol. It is also a decentralized autonomous organization run by a subset of its users, which are called \"masternodes\".",
     "learn_more_link": "https://www.google.com",
     "price": "$23,076.45",
